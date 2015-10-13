@@ -6,25 +6,6 @@ typedef struct TreeNodeStruct {
     struct TreeNodeStruct *pRight;
 } TreeNode;
 
-/*void flatten(TreeNode *root)
-{
-	TreeNode *mostRighOfLeft=root;
-	if(root!=NULL)
-	{
-		flatten(root->pLeft);
-		flatten(root->pRight);
-		if(root->pLeft!=NULL)
-		{
-			while(mostRighOfLeft->pRight!=NULL)
-			{
-				mostRighOfLeft=mostRighOfLeft->pRight;
-			}
-			mostRighOfLeft->pLeft=root->pLeft;
-			root->pLeft=root->pRight;
-		}
-	}
-}*/
-
 TreeNode *flattenBT(TreeNode *root)
 {
     if(root==NULL)
