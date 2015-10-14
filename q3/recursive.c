@@ -27,7 +27,7 @@ TreeNode *flattenBT(TreeNode *root)
 
 void flatten(TreeNode *root)
 {
-    TreeNode *rightTail = flattenBT(root);
+    flattenBT(root);
 }
 
 
