@@ -93,6 +93,9 @@ ListNode *detectCycle(ListNode *head)
 
         cnode=cnode->next;
     }
+    if(cnode==NULL)
+        return NULL;
+
     clearStack();
     return detectCycle(head->next);
 }
