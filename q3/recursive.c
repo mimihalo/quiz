@@ -30,102 +30,73 @@ void flatten(TreeNode *root)
     TreeNode *rightTail = flattenBT(root);
 }
 
-/*int createTree(TreeNode *cnode,FILE *fp)
-{
-	int tmp;
-	char strtmp[8];
-	if(fscanf(fp,"%s",&strtmp)!=1)
-		return 0;
-	tmp=atoi(strtmp);
-	if(tmp!=0)
-	{
-		cnode->pLeft=malloc(sizeof(TreeNode));
-		cnode->pLeft->value=tmp;
-	}
-	
-	if(fscanf(fp,"%s",&strtmp)!=1)
-		return 0;
-	tmp=atoi(strtmp);
-	if(tmp!=0)
-	{
-		cnode->pRight=malloc(sizeof(TreeNode));
-		cnode->pRight->value=tmp;
-	}
-	
-	createTree(cnode->pLeft,fp);
-	createTree(cnode->pRight,fp);
-}*/
 
 void createTree(TreeNode *cnode,int depth,int cdep,FILE *fp)
 {
-	int tmp;
-	char strtmp[8];
-	
-	if(cdep<=depth)
-	{
-		cnode->pLeft=malloc(sizeof(TreeNode));
-		fscanf(fp,"%s",&strtmp);
-		tmp=atoi(strtmp);
-		cnode->pLeft->pLeft=NULL;
-		cnode->pLeft->pRight=NULL;
-		if(tmp!=0)
-			cnode->pLeft->value=tmp;
-		else
-		{
-			free(cnode->pLeft);
-			cnode->pLeft=NULL;
-		}
-		
-		cnode->pRight=malloc(sizeof(TreeNode));
-		fscanf(fp,"%s",&strtmp);
-		tmp=atoi(strtmp);
-		cnode->pRight->pLeft=NULL;
-		cnode->pRight->pRight=NULL;
-		if(tmp!=0)
-			cnode->pRight->value=tmp;
-		else
-		{
-			free(cnode->pRight);
-			cnode->pRight=NULL;
-		}
-		
-		createTree(cnode->pLeft,depth,cdep+1,fp);
-		createTree(cnode->pRight,depth,cdep+1,fp);
-	}
+    int tmp;
+    char strtmp[8];
+
+    if(cdep<=depth) {
+        cnode->pLeft=malloc(sizeof(TreeNode));
+        fscanf(fp,"%s",&strtmp);
+        tmp=atoi(strtmp);
+        cnode->pLeft->pLeft=NULL;
+        cnode->pLeft->pRight=NULL;
+        if(tmp!=0)
+            cnode->pLeft->value=tmp;
+        else {
+            free(cnode->pLeft);
+            cnode->pLeft=NULL;
+        }
+
+        cnode->pRight=malloc(sizeof(TreeNode));
+        fscanf(fp,"%s",&strtmp);
+        tmp=atoi(strtmp);
+        cnode->pRight->pLeft=NULL;
+        cnode->pRight->pRight=NULL;
+        if(tmp!=0)
+            cnode->pRight->value=tmp;
+        else {
+            free(cnode->pRight);
+            cnode->pRight=NULL;
+        }
+
+        createTree(cnode->pLeft,depth,cdep+1,fp);
+        createTree(cnode->pRight,depth,cdep+1,fp);
+    }
 }
 
 int intlog2(int in)
 {
-	int res=0;
-	
-	while(in>1)
-	{
-		in/=2;
-		res++;
-	}
-	return res;
+    int res=0;
+
+    while(in>1) {
+        in/=2;
+        res++;
+    }
+    return res;
 }
 
 TreeNode *init_tree()
 {
     TreeNode *root=malloc(sizeof(TreeNode));
-	FILE *fp=fopen("testdata","r");
-	int tmp,depth=0,cnt=0;
-	char strtmp[8];
-	
-	while(fscanf(fp,"%s",&strtmp)==1)
-		cnt++;
-	fclose(fp);
-	fp=fopen("testdata","r");
-	depth=intlog2(cnt+1);
-	/*init root*/
-	fscanf(fp,"%s",&strtmp);
-	tmp=atoi(strtmp);
-	root->value=tmp;
-	
-	/*init tree*/
-	createTree(root,depth,2,fp);
-	
+    FILE *fp=fopen("testdata","r");
+    int tmp,depth=0,cnt=0;
+    char strtmp[8];
+
+    while(fscanf(fp,"%s",&strtmp)==1)
+        cnt++;
+    fclose(fp);
+    fp=fopen("testdata","r");
+    depth=intlog2(cnt+1);
+    /*init root*/
+    fscanf(fp,"%s",&strtmp);
+    tmp=atoi(strtmp);
+    root->value=tmp;
+
+    /*init tree*/
+    createTree(root,depth,2,fp);
+
     return root;
 }
 
@@ -141,7 +112,7 @@ void printtree(TreeNode *root)
 int main()
 {
     TreeNode *root=init_tree();
-	printtree(root);
+    printtree(root);
     flatten(root);
     printf("flattened:\n");
     printtree(root);
