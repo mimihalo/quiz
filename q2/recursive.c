@@ -17,15 +17,14 @@ char smallest_character(char str[], char c)
     return 0;
 }
 
-int main()
+int main(int argc, char* argv[])
 {
     char str[128];
     char c;
     char res;
-    printf("str: ");
-    gets(str);
-    printf("c: ");
-    scanf("%c",&c);
+    FILE *fp=fopen(argv[1],"r");
+    fgets(str,128,fp);
+    fscanf(fp,"%c",&c);
     fflush(stdin);
 
     res=smallest_character(str, c);
